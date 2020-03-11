@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="Styling/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/workers.css" />
-    <link rel="stylesheet" href="css/loading.css" />
+    <link rel="stylesheet" href="css/blockchainload.css" />
 
 
     <title>ChainLink</title>
@@ -18,9 +18,9 @@
   <body>
 
     <div class="navbar">
-        <a href="#home">Home</a>
+        <a href="about.html">About</a>  
         <a href="store.html">Chains</a>
-        <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
+        <a onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</a>
         <button onclick="document.getElementById('id02').style.display='block'" style="width:auto;">Sign Up</button>
       </div>
       
@@ -32,6 +32,12 @@
       
     <div class="container">
         <!-- Content here -->        
+        
+      <div id="loadings">
+        <img src="/img/loading.svg" />
+        <!-- <div class="msg text-center"><b>LOADING</b></div> -->
+      </div>
+
         <div id="overlay"></div>
         <div id="text">ChainLink <script>document.write(new Date().getFullYear());</script> </div>
 
@@ -96,8 +102,8 @@
             <div style="display:none;" id="myDiv" class="animate-bottom">
               <h1>Welcome</h1>
               
-              <p>Today is fun <span id="datetime"></span></p>
-              <p></p>
+              <p>Please Register to Proceed</p>
+              <p><span id="datetime"></span></p>
             </div>
            
             <script>
