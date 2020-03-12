@@ -19,10 +19,33 @@
 
   <body>
 
-    <div class="navbar">
-        <a href="index.html">Back Home</a>
-      </div>
       
+<div class="topnav" id="myTopnav">
+  <a href="index.html" class="active">Back</a>
+  <a onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</a>
+  <a onclick="document.getElementById('id02').style.display='block'" style="width:auto;">Sign Up</a>
+  <a href="chains.html">Freelancers</a>
+  <div class="dropdown">
+   
+  </button>
+
+  </div> 
+  <a href="about.html">About</a>  
+  <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="navme()">&#9776;</a>
+</div>
+
+
+<script>
+  function navme() {
+    var x = document.getElementById("myTopnav");
+    if (x.className === "topnav") {
+      x.className += " responsive";
+    } else {
+      x.className = "topnav";
+    }
+  }
+  </script>
+  
       <div class="main">
        <p></p>
       </div>
