@@ -321,7 +321,3 @@ $('#homeLink').click( function(event){
   
 
 })
-
-type i = int
-type s = string
-type a = address
