@@ -8,7 +8,8 @@
     /* background-color: #ffffffcf; */
 }
 #loadings img{
-    position: center;
-    left: 50%;
+    position: static;
+    left: 40%;
+    right: 60%;
     top: 50%;
 }
