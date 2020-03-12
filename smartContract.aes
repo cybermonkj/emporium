@@ -1,17 +1,13 @@
-payable contract CvUpload =
+payable contract Registration =
 
-    type i = int
-    type s = string
-    type a = address
+
     record user = {
-        name : s,
+        chainee : s,
         email : s,
-        price : i,
-        work : s,
+        salary : i,
+        jobType : s,
         hours : i,
-        company : s,
-
-        cv : s,
+        js : s,
         hired : int,
         ownerAddress : a,
         id : i}
@@ -30,35 +26,31 @@ payable contract CvUpload =
         
 
 
-    stateful entrypoint register(newName:s, newEmail :s, newPrice :i, newWork :s, newHours : i, newCompany : s, newCv : s) = 
+    stateful entrypoint register(newEmail :s, newchainee:s, newsalary :i, newjobType :s, workingHours : i,  jobSample : s) = 
         let newUser = {
-            name = newName,
-            work = newWork,
-            company = newCompany,
+            chainee = newchainee,
+            jobType = newjobType,
             email = newEmail,
-            price = newPrice,
-            hours = newHours,
-            cv = newCv,
+            salary = newsalary,
+            hours = workingHours,
+            js = jobSample,
             hired = 0,
 
             id = userLength() + 1,
             ownerAddress = Call.caller}
         let index = userLength() +1
-
         put(state{users[index] = newUser, userLength = index})
-
-        "User has been added successfully"
-
+        "New chainee has been added successfully"
 
     stateful payable entrypoint hireUser(index : i) = 
         let employeeAddress = getUserById(index).ownerAddress
         require(Call.caller != employeeAddress, "You cannot hire yourself;)")
-
-        // require(state.users[index].hired == false, "THis worker has been hired by another company" )
-
         let toBeHired = getUserById(index)
-        Chain.spend(toBeHired.ownerAddress, toBeHired.price)
+        Chain.spend(toBeHired.ownerAddress, toBeHired.salary)
         let hired = state.users[index].hired +1
-
         put(state{users[index].hired = hired })
-        "Hired successfully"
+        "You successfully hired Freelancer"
+
+    type i = int
+    type s = string
+    type a = address

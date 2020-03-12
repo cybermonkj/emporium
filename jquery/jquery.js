@@ -678,7 +678,7 @@ var i,
 		var high = "0x" + escaped - 0x10000;
 		// NaN means non-codepoint
 		// Support: Firefox<24
-		// Workaround erroneous numeric interpretation of +"0x"
+		// jobTypearound erroneous numeric interpretation of +"0x"
 		return high !== high || escapedWhitespace ?
 			escaped :
 			high < 0 ?
@@ -838,7 +838,7 @@ function Sizzle( selector, context, results, seed ) {
 					newSelector = selector;
 
 				// qSA looks outside Element context, which is not what we want
-				// Thanks to Andrew Dupont for this workaround technique
+				// Thanks to Andrew Dupont for this jobTypearound technique
 				// Support: IE <=8
 				// Exclude object elements
 				} else if ( context.nodeName.toLowerCase() !== "object" ) {
@@ -2055,7 +2055,7 @@ Expr = Sizzle.selectors = {
 
 		"selected": function( elem ) {
 			// Accessing this property makes selected-by-default
-			// options in Safari work properly
+			// options in Safari jobType properly
 			if ( elem.parentNode ) {
 				elem.parentNode.selectedIndex;
 			}
@@ -2068,7 +2068,7 @@ Expr = Sizzle.selectors = {
 			// http://www.w3.org/TR/selectors/#empty-pseudo
 			// :empty is negated by element (1) or content nodes (text: 3; cdata: 4; entity ref: 5),
 			//   but not by others (comment: 8; processing instruction: 7; etc.)
-			// nodeType < 6 works because attributes (2) do not appear as children
+			// nodeType < 6 jobTypes because attributes (2) do not appear as children
 			for ( elem = elem.firstChild; elem; elem = elem.nextSibling ) {
 				if ( elem.nodeType < 6 ) {
 					return false;
@@ -2645,7 +2645,7 @@ compile = Sizzle.compile = function( selector, match /* Internal Use Only */ ) {
 };
 
 /**
- * A low-level selection function that works with Sizzle's compiled
+ * A low-level selection function that jobTypes with Sizzle's compiled
  *  selector functions
  * @param {String|Function} selector A selector or a pre-compiled
  *  selector function built with Sizzle.compile
@@ -3945,7 +3945,7 @@ if ( document.readyState === "complete" ||
 	// Use the handy event callback
 	document.addEventListener( "DOMContentLoaded", completed );
 
-	// A fallback to window.onload, that will always work
+	// A fallback to window.onload, that will always jobType
 	window.addEventListener( "load", completed );
 }
 
@@ -5529,7 +5529,7 @@ jQuery.each( {
 }, jQuery.event.addProp );
 
 // Create mouseenter/leave events using mouseover/out and event-time checks
-// so that event delegation works in jQuery.
+// so that event delegation jobTypes in jQuery.
 // Do the same for pointerenter/pointerleave and pointerover/pointerout
 //
 // Support: Safari 7 only
@@ -6427,13 +6427,13 @@ jQuery.extend( {
 			return;
 		}
 
-		// Make sure that we're working with the right name
+		// Make sure that we're jobTypeing with the right name
 		var ret, type, hooks,
 			origName = jQuery.camelCase( name ),
 			isCustomProp = rcustomProp.test( name ),
 			style = elem.style;
 
-		// Make sure that we're working with the right name. We don't
+		// Make sure that we're jobTypeing with the right name. We don't
 		// want to query the value if it is a CSS custom property
 		// since they are user-defined.
 		if ( !isCustomProp ) {
@@ -6500,7 +6500,7 @@ jQuery.extend( {
 			origName = jQuery.camelCase( name ),
 			isCustomProp = rcustomProp.test( name );
 
-		// Make sure that we're working with the right name. We don't
+		// Make sure that we're jobTypeing with the right name. We don't
 		// want to modify the value if it is a CSS custom property
 		// since they are user-defined.
 		if ( !isCustomProp ) {
@@ -8469,7 +8469,7 @@ jQuery.fn.extend( {
 		.filter( function() {
 			var type = this.type;
 
-			// Use .is( ":disabled" ) so that fieldset[disabled] works
+			// Use .is( ":disabled" ) so that fieldset[disabled] jobTypes
 			return this.name && !jQuery( this ).is( ":disabled" ) &&
 				rsubmittable.test( this.nodeName ) && !rsubmitterTypes.test( type ) &&
 				( this.checked || !rcheckableType.test( type ) );
@@ -8675,7 +8675,7 @@ function ajaxConvert( s, response, jqXHR, isSuccess ) {
 	var conv2, current, conv, tmp, prev,
 		converters = {},
 
-		// Work with a copy of dataTypes in case we need to modify it for conversion
+		// jobType with a copy of dataTypes in case we need to modify it for conversion
 		dataTypes = s.dataTypes.slice();
 
 	// Create converters map with lowercased keys
@@ -8704,7 +8704,7 @@ function ajaxConvert( s, response, jqXHR, isSuccess ) {
 
 		if ( current ) {
 
-			// There's only work to do if current dataType is non-auto
+			// There's only jobType to do if current dataType is non-auto
 			if ( current === "*" ) {
 
 				current = prev;
@@ -10203,7 +10203,7 @@ jQuery.nodeName = nodeName;
 // way to register. Lowercase jquery is used because AMD module names are
 // derived from file names, and jQuery is normally delivered in a lowercase
 // file name. Do this after creating the global so that if an AMD module wants
-// to call noConflict to hide this version of jQuery, it will work.
+// to call noConflict to hide this version of jQuery, it will jobType.
 
 // Note that for maximum portability, libraries that are not jQuery should
 // declare themselves as anonymous modules, and avoid setting a global if an

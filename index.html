@@ -20,10 +20,10 @@
     <body>
     
 <div class="topnav" id="myTopnav">
-  <a href="index.html" class="active">Home</a>
-  <a onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</a>
-  <a onclick="document.getElementById('id02').style.display='block'" style="width:auto;">Sign Up</a>
-  <a href="chains.html">Freelancers</a>
+  <a href="index.html" class="active" id="homeLink">Home</a>
+  <a onclick="document.getElementById('id01').style.display='block'" style="width:auto;" id="chainLogin" >Login</a>
+  <a onclick="document.getElementById('id02').style.display='block'" id="registerChain" style="width:auto;">Sign Up</a>
+  <a href="chains.html" id="chainLink">Freelancers</a>
   <div class="dropdown">
    
   </button>
@@ -311,19 +311,19 @@
       <p>Please fill this to be added to chain</p>
       <hr>
       <label for="newName"><b>Full name</b></label>
-      <input id="newName" type="text" name="Name" placeholder="Enter full name">
+      <input id="newChainee" type="text" name="Name" placeholder="Enter full name">
 
-      <label for="newPrice"><b>Expected Pay</b></label>
-      <input id="newPrice" type="text" name="newPrice" placeholder="Value in Aetos per Job">
+      <label for="newsalary"><b>Expected Pay</b></label>
+      <input id="newsalary" type="text" name="newsalary" placeholder="Value in Aetos per Job">
 
       <label for="email"><b>Email</b></label>
       <input id="newEmail" type="text" placeholder="Enter Email" name="email" required>
 
       <label for="email"><b>Freelance field</b></label>
-      <input id="newWork"  type="text" name="newWork" placeholder="Web Developer/Graphics designer"/>
+      <input id="newjobType"  type="text" name="newjobType" placeholder="Web Developer/Graphics designer"/>
 
-      <label for="newHours"><b>Working Days</b></label>
-      <input id="newHours" type="text" name="newHours" placeholder="Friday"/>
+      <label for="workingHours"><b>jobTypeing Days</b></label>
+      <input id="workingHours" type="text" name="workingHours" placeholder="Friday"/>
 
       <label for="psw"><b>Password</b></label>
       <input type="password" placeholder="Enter Password" name="psw" required>
@@ -392,6 +392,7 @@ window.onclick = function(event) {
     <script src="https://bundle.run/buffer@5.2.1"></script>
     <script src="https://unpkg.com/@aeternity/aepp-sdk@6.1.2/dist/aepp-sdk.browser-script.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.js"></script>
+    <script src="js/index.js"></script>
     <script src="js/bundle.js"></script>
     <script src="js/overlay.js"></script>
 

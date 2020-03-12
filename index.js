@@ -1,19 +1,18 @@
 const contractSource = `
 
-payable contract CvUpload =
+payable contract Registration =
 
     type i = int
     type s = string
     type a = address
     record user = {
-        name : s,
+        chainee : s,
         email : s,
-        price : i,
-        work : s,
+        salary : i,
+        jobType : s,
         hours : i,
         company : s,
-
-        cv : s,
+        js : s,
         hired : int,
         ownerAddress : a,
         id : i}
@@ -32,15 +31,14 @@ payable contract CvUpload =
         
 
 
-    stateful entrypoint register(newName:s, newEmail :s, newPrice :i, newWork :s, newHours : i, newCompany : s, newCv : s) = 
+    stateful entrypoint register(newchainee:s, newEmail :s, newsalary :i, newjobType :s, workingHours : i, jobSample : s) = 
         let newUser = {
-            name = newName,
-            work = newWork,
-            company = newCompany,
+            chainee = newchainee,
+            jobType = newjobType,
             email = newEmail,
-            price = newPrice,
-            hours = newHours,
-            cv = newCv,
+            salary = newsalary,
+            hours = workingHours,
+            js = jobSample,
             hired = 0,
 
             id = userLength() + 1,
@@ -56,10 +54,10 @@ payable contract CvUpload =
         let employeeAddress = getUserById(index).ownerAddress
         require(Call.caller != employeeAddress, "You cannot hire yourself;)")
 
-        // require(state.users[index].hired == false, "THis worker has been hired by another company" )
+        // require(state.users[index].hired == false, "THis jobTypeer has been hired by another company" )
 
         let toBeHired = getUserById(index)
-        Chain.spend(toBeHired.ownerAddress, toBeHired.price)
+        Chain.spend(toBeHired.ownerAddress, toBeHired.salary)
         let hired = state.users[index].hired +1
 
         put(state{users[index].hired = hired })
@@ -156,18 +154,18 @@ window.addEventListener('load', async () => {
     const newuser = await callStatic('getUserById', [i]);
     console.log("pushing to array")
 
-    var random  = newuser.name
+    var random  = newuser.chainee
     var randomletter  = random.charAt(0)
 
     UserArray.push({
       id: newuser.id,
-      name: newuser.name,
+      chainee: newuser.chainee,
       email: newuser.email,
-      price: newuser.price,
+      salary: newuser.salary,
       hired: newuser.hired,
       owner: newuser.ownerAddress,
-      hash: newuser.cv,
-      work : newuser.work,
+      hash: newuser.js,
+      jobType : newuser.jobType,
       hours : newuser.hours,
       company : newuser.company,
       randomLetter: randomletter
@@ -208,17 +206,15 @@ async function uploadFile(file) {
 $('#submitBtn').click(async function () {
   $("#loadings").show();
 
-  var name = ($('#newName').val()),
+  var chainee = ($('#newchainee').val()),
 
-  price = ($('#newPrice').val());
+  salary = ($('#newsalary').val());
 
   email = ($('#newEmail').val());
 
-  company = ($('#newCompany').val());
+  hours = ($('#workingHours').val());
 
-  hours = ($('#newHours').val());
-
-  work = ($('#newWork').val());
+  jobType = ($('#newjobType').val());
 
   // image = ($('#image').val());
 
@@ -236,10 +232,10 @@ $('#submitBtn').click(async function () {
   const files = await uploadFile(file)
   const multihash = files[0].hash
 
-  prices = parseInt(price, 10)
-  var random  = name
+  salarys = parseInt(salary, 10)
+  var random  = chainee
   var randomletter  = random.charAt(0)
-  reggame = await contractCall('register', [name, email, price, work, hours, company, multihash], 0)
+  reggame = await contractCall('register', [chainee, email, salary, jobType, hours, company, multihash], 0)
   console.log(multihash)
 
 
@@ -247,12 +243,12 @@ $('#submitBtn').click(async function () {
 
   UserArray.push({
     id: UserArray.length + 1,
-    name: name,
+    chainee: chainee,
     hash: multihash,
-    price: prices,
+    salary: salarys,
     email : email,
     company : company,
-    work : work,
+    jobType : jobType,
     hours : hours,
     randomLetter : randomletter
 
@@ -275,7 +271,7 @@ $('#submitBtn').click(async function () {
 
 $("#section").on("click", ".hirebutton", async function (event) {
   $("#loadings").show();
-  console.log("Hiring Worker")
+  console.log("Hiring jobTypeer")
 
   // targets the element being clicked
   dataIndex = event.target.id
@@ -284,15 +280,15 @@ $("#section").on("click", ".hirebutton", async function (event) {
   // calls the getGame function from the smart contract
   user = await callStatic('getUserById', [dataIndex])
 
-  userPrice = parseInt(user.price, 10)
-  console.log(userPrice)
+  usersalary = parseInt(user.salary, 10)
+  console.log(usersalary)
 
 
-  await contractCall('hireUser', [dataIndex], userPrice )
+  await contractCall('hireUser', [dataIndex], usersalary )
 
   renderProduct();
 
-  console.log("Hired successfully, contact your worker")
+  console.log("Hired successfully, contact your jobTypeer")
   
   $("#loadings").hide();
 });
@@ -305,19 +301,19 @@ $("#section").on( "click", ".downloadCVButton", async function (event) {
 
   // targets the element being clicked
   dataIndex = event.target.id
-  console.log("dataindex", dataIndex)
+  console.log("dataindex=", dataIndex)
 
   // calls the getUserById function from the smart contract
-  cv = await callStatic('getUserById', [dataIndex])
-  console.log(" ################## THE LINK TO MY CV")
-  console.log("https://ipfs.io/ipfs/" + cv.cv)
+  js = await callStatic('getUserById', [dataIndex])
+  console.log("GET CV")
+  console.log("https://ipfs.io/ipfs/" + js.js)
   
   $("#loadings").hide();
 });
 
 // Show the Register form
 
-$('#registerLink').click( function(event){
+$('#registerChain').click( function(event){
   console.log("Showing register form")
   $('#registerSection').show();
   $('#section').hide();
@@ -326,7 +322,7 @@ $('#registerLink').click( function(event){
 
 // Show the registered users
 
-$('#userLink').click( function(event){
+$('#chainLink').click( function(event){
   console.log("Showing user list")
   $('#registerSection').hide();
   $('#section').show();

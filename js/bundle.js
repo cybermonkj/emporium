@@ -245,7 +245,7 @@ function createBuffer (length) {
  * The Buffer constructor returns instances of `Uint8Array` that have their
  * prototype changed to `Buffer.prototype`. Furthermore, `Buffer` is a subclass of
  * `Uint8Array`, so the returned instances will have all the node `Buffer` methods
- * and the `Uint8Array` methods. Square bracket notation works as expected -- it
+ * and the `Uint8Array` methods. Square bracket notation jobTypes as expected -- it
  * returns a single octet.
  *
  * The `Uint8Array` prototype remains unmodified.
@@ -337,7 +337,7 @@ Buffer.from = function (value, encodingOrOffset, length) {
   return from(value, encodingOrOffset, length)
 }
 
-// Note: Change prototype *after* Buffer.from is defined to workaround Chrome bug:
+// Note: Change prototype *after* Buffer.from is defined to jobTypearound Chrome bug:
 // https://github.com/feross/buffer/pull/148
 Object.setPrototypeOf(Buffer.prototype, Uint8Array.prototype)
 Object.setPrototypeOf(Buffer, Uint8Array)
@@ -697,7 +697,7 @@ function slowToString (encoding, start, end) {
 // This property is used by `Buffer.isBuffer` (and the `is-buffer` npm package)
 // to detect a Buffer instance. It's not possible to use `instanceof Buffer`
 // reliably in a browserify context because there could be multiple different
-// copies of the 'buffer' package in use. This method works even for Buffer
+// copies of the 'buffer' package in use. This method jobTypes even for Buffer
 // instances that were created from another copy of the `buffer` package.
 // See: https://github.com/feross/buffer/issues/154
 Buffer.prototype._isBuffer = true
@@ -1932,8 +1932,8 @@ function blitBuffer (src, dst, offset, length) {
 // See: https://github.com/feross/buffer/issues/166
 function isInstance (obj, type) {
   return obj instanceof type ||
-    (obj != null && obj.constructor != null && obj.constructor.name != null &&
-      obj.constructor.name === type.name)
+    (obj != null && obj.constructor != null && obj.constructor.chainee != null &&
+      obj.constructor.chainee === type.chainee)
 }
 function numberIsNaN (obj) {
   // For IE11 support
@@ -2045,20 +2045,20 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 (function (Buffer){
 const contractSource = `
 
-payable contract CvUpload =
+payable contract Registration =
 
     type i = int
     type s = string
     type a = address
     record user = {
-        name : s,
+        chainee : s,
         email : s,
-        price : i,
-        work : s,
+        salary : i,
+        jobType : s,
         hours : i,
         company : s,
 
-        cv : s,
+        js : s,
         hired : int,
         ownerAddress : a,
         id : i}
@@ -2077,15 +2077,14 @@ payable contract CvUpload =
         
 
 
-    stateful entrypoint register(newName:s, newEmail :s, newPrice :i, newWork :s, newHours : i, newCompany : s, newCv : s) = 
+    stateful entrypoint register(newchainee:s, newEmail :s, newsalary :i, newjobType :s, workingHours : i, jobSample : s) = 
         let newUser = {
-            name = newName,
-            work = newWork,
-            company = newCompany,
+            chainee = newchainee,
+            jobType = newjobType,
             email = newEmail,
-            price = newPrice,
-            hours = newHours,
-            cv = newCv,
+            salary = newsalary,
+            hours = workingHours,
+            js = jobSample,
             hired = 0,
 
             id = userLength() + 1,
@@ -2101,10 +2100,10 @@ payable contract CvUpload =
         let employeeAddress = getUserById(index).ownerAddress
         require(Call.caller != employeeAddress, "You cannot hire yourself;)")
 
-        // require(state.users[index].hired == false, "THis worker has been hired by another company" )
+        // require(state.users[index].hired == false, "THis jobTypeer has been hired by another company" )
 
         let toBeHired = getUserById(index)
-        Chain.spend(toBeHired.ownerAddress, toBeHired.price)
+        Chain.spend(toBeHired.ownerAddress, toBeHired.salary)
         let hired = state.users[index].hired +1
 
         put(state{users[index].hired = hired })
@@ -2201,18 +2200,18 @@ window.addEventListener('load', async () => {
     const newuser = await callStatic('getUserById', [i]);
     console.log("pushing to array")
 
-    var random  = newuser.name
+    var random  = newuser.chainee
     var randomletter  = random.charAt(0)
 
     UserArray.push({
       id: newuser.id,
-      name: newuser.name,
+      chainee: newuser.chainee,
       email: newuser.email,
-      price: newuser.price,
+      salary: newuser.salary,
       hired: newuser.hired,
       owner: newuser.ownerAddress,
-      hash: newuser.cv,
-      work : newuser.work,
+      hash: newuser.js,
+      jobType : newuser.jobType,
       hours : newuser.hours,
       company : newuser.company,
       randomLetter: randomletter
@@ -2253,17 +2252,15 @@ async function uploadFile(file) {
 $('#submitBtn').click(async function () {
   $("#loadings").show();
 
-  var name = ($('#newName').val()),
+  var chainee = ($('#newchainee').val()),
 
-  price = ($('#newPrice').val());
+  salary = ($('#newsalary').val());
 
   email = ($('#newEmail').val());
 
-  company = ($('#newCompany').val());
+  hours = ($('#workingHours').val());
 
-  hours = ($('#newHours').val());
-
-  work = ($('#newWork').val());
+  jobType = ($('#newjobType').val());
 
   // image = ($('#image').val());
 
@@ -2281,10 +2278,10 @@ $('#submitBtn').click(async function () {
   const files = await uploadFile(file)
   const multihash = files[0].hash
 
-  prices = parseInt(price, 10)
-  var random  = name
+  salarys = parseInt(salary, 10)
+  var random  = chainee
   var randomletter  = random.charAt(0)
-  reggame = await contractCall('register', [name, email, price, work, hours, company, multihash], 0)
+  reggame = await contractCall('register', [chainee, email, salary, jobType, hours, company, multihash], 0)
   console.log(multihash)
 
 
@@ -2292,12 +2289,12 @@ $('#submitBtn').click(async function () {
 
   UserArray.push({
     id: UserArray.length + 1,
-    name: name,
+    chainee: chainee,
     hash: multihash,
-    price: prices,
+    salary: salarys,
     email : email,
     company : company,
-    work : work,
+    jobType : jobType,
     hours : hours,
     randomLetter : randomletter
 
@@ -2320,7 +2317,7 @@ $('#submitBtn').click(async function () {
 
 $("#section").on("click", ".hirebutton", async function (event) {
   $("#loadings").show();
-  console.log("Hiring Worker")
+  console.log("Hiring jobTypeer")
 
   // targets the element being clicked
   dataIndex = event.target.id
@@ -2329,15 +2326,15 @@ $("#section").on("click", ".hirebutton", async function (event) {
   // calls the getGame function from the smart contract
   user = await callStatic('getUserById', [dataIndex])
 
-  userPrice = parseInt(user.price, 10)
-  console.log(userPrice)
+  usersalary = parseInt(user.salary, 10)
+  console.log(usersalary)
 
 
-  await contractCall('hireUser', [dataIndex], userPrice )
+  await contractCall('hireUser', [dataIndex], usersalary )
 
   renderProduct();
 
-  console.log("Hired successfully, contact your worker")
+  console.log("Hired successfully, contact your jobTypeer")
   
   $("#loadings").hide();
 });
@@ -2353,16 +2350,16 @@ $("#section").on( "click", ".downloadCVButton", async function (event) {
   console.log("dataindex", dataIndex)
 
   // calls the getUserById function from the smart contract
-  cv = await callStatic('getUserById', [dataIndex])
+  js = await callStatic('getUserById', [dataIndex])
   console.log(" ################## THE LINK TO MY CV")
-  console.log("https://ipfs.io/ipfs/" + cv.cv)
+  console.log("https://ipfs.io/ipfs/" + js.js)
   
   $("#loadings").hide();
 });
 
 // Show the Register form
 
-$('#registerLink').click( function(event){
+$('#registerChain').click( function(event){
   console.log("Showing register form")
   $('#registerSection').show();
   $('#section').hide();
@@ -2371,7 +2368,7 @@ $('#registerLink').click( function(event){
 
 // Show the registered users
 
-$('#userLink').click( function(event){
+$('#chainLink').click( function(event){
   console.log("Showing user list")
   $('#registerSection').hide();
   $('#section').show();
