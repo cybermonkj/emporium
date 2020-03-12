@@ -1,15 +1,16 @@
 #loadings {
-    position: fixed;
-    left: 30%;
-    top: 40%;
-    width: 100%;
-    height: 100%;
-    z-index: 9999;
-    /* background-color: #ffffffcf; */
-}
+    position: static;
+    left: 50%;
+    top: 50%;
+    z-index: 1;
+    width: 150px;
+    height: auto;
+    width: auto;
+  }
+
 #loadings img{
     position: static;
     left: 40%;
-    right: 60%;
+    right: 50%;
     top: 50%;
 }

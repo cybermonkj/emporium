@@ -5,12 +5,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel = "icon" href = "../Aertstore/img/logo.png" type = "image/x-icon"> 
+    <link rel = "icon" href = "/img/logo.png" type = "image/x-icon"> 
     <link rel="stylesheet" href="Styling/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="Styling/workers.css" />
     <link rel="stylesheet" href="Styling/blockchainload.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
 
 
     <title>ChainLink</title>
@@ -19,10 +20,10 @@
   <body>
 
     <div class="navbar">
-        <a href="about.html">About</a>  
-        <a href="store.html">Chains</a>
+        <a href="chains.html">Chains</a>
         <a onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</a>
-        <button onclick="document.getElementById('id02').style.display='block'" style="width:auto;">Sign Up</button>
+        <a onclick="document.getElementById('id02').style.display='block'" style="width:auto;">Sign Up</a>
+        <a href="about.html">About</a>  
       </div>
       
       <div class="main">
@@ -30,18 +31,14 @@
       </div>
   
       
-      
-    <div class="container">
-        <!-- Content here -->    
-        
-              
-      <div id="loadings">
-        <img src="/img/loading.svg" />
-        <!-- <div class="msg text-center"><b>LOADING</b></div> -->
-      </div>
+      <style>    
+        .element {
+          background-image: url(/img/background.svg);
+        } 
+        </style>
 
-        <div id="overlay"></div>
-        <div id="text">ChainLink <script>document.write(new Date().getFullYear());</script> </div>
+    <div class="container">
+        <!-- Content here -->
 
         <style>
             /* Center the loader */
@@ -58,7 +55,7 @@
               border-top: 16px solid blue;
               width: 120px;
               height: 120px;
-              -webkit-animation: spin 2s linear infinite;
+              -webkit-animation: spin 1s linear infinite;
               animation: spin 2s linear infinite;
             }
             
@@ -102,12 +99,12 @@
             <div id="loader"></div>
             
             <div style="display:none;" id="myDiv" class="animate-bottom">
-              <h1>Welcome</h1>
-              
-              <p>Please Signup to be added to the Chain</p>
-              <p><span id="datetime"></span></p>
-            <div id="loginon" href="id02"><a>Signup</a></div>
+              <div id="loadings">
+                <img src="/img/loading.svg" />
+                <div class="msg text-center"><b>Waiting for Blockchain</b>
+              </div>
             </div>
+          </div>
 
 
            
@@ -290,7 +287,7 @@
   <form class="modal-content" action="/action_page.php">
     <div class="container">
       <h1>Sign Up</h1>
-      <p>Please fill this in to be added to chain</p>
+      <p>Please fill this to be added to chain</p>
       <hr>
       <label for="newName"><b>Full name</b></label>
       <input id="newName" type="text" name="Name" placeholder="Enter full name">
@@ -313,19 +310,19 @@
       <label for="psw-repeat"><b>Repeat Password</b></label>
       <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
       
-      <label for="email"><b>Job Samples</b></label>
+      <label for="email"><b>Job Samples as ZIP</b></label>
       <input type="file"  id="addedFile" style="border: solid 1px blue">
 
-      
+
       <label>
-        <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
+        <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px" id="rememberme"> Remember me
       </label>
 
       <p>By creating an account you agree to our <a href="terms.html" style="color:dodgerblue">Terms & Privacy</a>.</p>
 
       <div class="clearfix">
         <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-        <button type="submit" class="signupbtn">Sign Up</button>
+        <button type="submit" class="signupbtn" id="submitBtn" >Sign Up</button>
       </div>
     </div>
   </form>
@@ -347,6 +344,7 @@ window.onclick = function(event) {
 
     </script>
     
+    <!-- my footer -->
       <style>
         .footer {
           position: fixed;
@@ -360,13 +358,21 @@ window.onclick = function(event) {
         </style>
         
         <div class="footer">
-          <p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved | Aertstore</p>
+          <p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved | ChainLink</p>
         </div>
-    <!-- Optional JavaScript -->
+
+    <!-- End of my footer -->
+
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <script src="js/overlay.js"    
+    <script src="https://unpkg.com/ipfs-http-client@30.1.3/dist/index.js"></script>
+    <script src="https://bundle.run/buffer@5.2.1"></script>
+    <script src="https://unpkg.com/@aeternity/aepp-sdk@6.1.2/dist/aepp-sdk.browser-script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.js"></script>
+    <script src="js/bundle.js"></script>
+    <script src="js/overlay.js"></script>
+
 </body>
 </html>
