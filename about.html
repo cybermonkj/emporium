@@ -9,9 +9,8 @@
     <link rel="stylesheet" href="Styling/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="Styling/workers.css" />
-    <link rel="stylesheet" href="Styling/blockchainload.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="/Styling/about.css"
 
 
     <title>ChainLink</title>
@@ -19,10 +18,33 @@
 
   <body>
 
-    <div class="navbar">
-        <a href="index.html">Back Home</a>  
-      </div>
-      
+
+    <div class="topnav" id="myTopnav">
+      <a href="index.html" class="active">Home</a>
+      <a onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</a>
+      <a onclick="document.getElementById('id02').style.display='block'" style="width:auto;">Sign Up</a>
+      <a href="chains.html">Freelancers</a>
+      <div class="dropdown">
+       
+      </button>
+    
+      </div> 
+      <a href="about.html">About</a>  
+      <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="navme()">&#9776;</a>
+    </div>
+    
+    
+    <script>
+      function navme() {
+        var x = document.getElementById("myTopnav");
+        if (x.className === "topnav") {
+          x.className += " responsive";
+        } else {
+          x.className = "topnav";
+        }
+      }
+      </script>
+    
       <div class="main">
         <p></p>
       </div>
