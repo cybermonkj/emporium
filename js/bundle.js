@@ -2045,72 +2045,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 (function (Buffer){
 const contractSource = `
 
-payable contract Registration =
-
-    type i = int
-    type s = string
-    type a = address
-    record user = {
-        chainee : s,
-        email : s,
-        salary : i,
-        jobType : s,
-        hours : i,
-        company : s,
-
-        js : s,
-        hired : int,
-        ownerAddress : a,
-        id : i}
-
-    record state = {
-        users : map(i,user),
-        userLength : i}
- 
-    entrypoint init() = {users = {}, userLength = 0}
-
-    entrypoint userLength() = 
-        state.userLength
-
-    entrypoint getUserById(index : int)= 
-        state.users[index]
-        
-
-
-    stateful entrypoint register(newchainee:s, newEmail :s, newsalary :i, newjobType :s, workingHours : i, jobSample : s) = 
-        let newUser = {
-            chainee = newchainee,
-            jobType = newjobType,
-            email = newEmail,
-            salary = newsalary,
-            hours = workingHours,
-            js = jobSample,
-            hired = 0,
-
-            id = userLength() + 1,
-            ownerAddress = Call.caller}
-        let index = userLength() +1
-
-        put(state{users[index] = newUser, userLength = index})
-
-        "User has been added successfully"
-
-
-    stateful payable entrypoint hireUser(index : i) = 
-        let employeeAddress = getUserById(index).ownerAddress
-        require(Call.caller != employeeAddress, "You cannot hire yourself;)")
-
-        // require(state.users[index].hired == false, "THis jobTypeer has been hired by another company" )
-
-        let toBeHired = getUserById(index)
-        Chain.spend(toBeHired.ownerAddress, toBeHired.salary)
-        let hired = state.users[index].hired +1
-
-        put(state{users[index].hired = hired })
-        "Hired successfully"
-
-
-
+"Hired successfully";
 `;
 
 const contractAddress = "ct_h9iy5fdMqqVhUK7Ncv5cJjrxEbz68b9E9NEzbgMz1JRr8W2hr";
@@ -2334,7 +2269,7 @@ $("#ChainSection").on("click", ".hirebutton", async function (event) {
 
   renderProduct();
 
-  console.log("Hired successfully, contact your jobTypeer")
+  console.log("Hired successfully, contact your Freelancer")
   
   $("#loadings").hide();
 });
@@ -2351,7 +2286,7 @@ $("#ChainSection").on( "click", ".downloadCVButton", async function (event) {
 
   // calls the getUserById function from the smart contract
   js = await callStatic('getUserById', [dataIndex])
-  console.log(" ################## THE LINK TO MY CV")
+  console.log(" Link to Job Sample")
   console.log("https://ipfs.io/ipfs/" + js.js)
   
   $("#loadings").hide();
