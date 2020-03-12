@@ -5,7 +5,7 @@ payable contract Registration =
     type i = int
     type s = string
     type a = address
-    record user = {
+    record chainee = {
         chainee : s,
         email : s,
         salary : i,
@@ -18,21 +18,21 @@ payable contract Registration =
         id : i}
 
     record state = {
-        users : map(i,user),
-        userLength : i}
+        chainees : map(i,chainee),
+        chaineeLength : i}
  
-    entrypoint init() = {users = {}, userLength = 0}
+    entrypoint init() = {chainees = {}, chaineeLength = 0}
 
-    entrypoint userLength() = 
-        state.userLength
+    entrypoint chaineeLength() = 
+        state.chaineeLength
 
-    entrypoint getUserById(index : int)= 
-        state.users[index]
+    entrypoint getchaineeById(index : int)= 
+        state.chainees[index]
         
 
 
     stateful entrypoint register(newchainee:s, newEmail :s, newsalary :i, newjobType :s, workingHours : i, jobSample : s) = 
-        let newUser = {
+        let newChainee = {
             chainee = newchainee,
             jobType = newjobType,
             email = newEmail,
@@ -41,26 +41,26 @@ payable contract Registration =
             js = jobSample,
             hired = 0,
 
-            id = userLength() + 1,
+            id = chaineeLength() + 1,
             ownerAddress = Call.caller}
-        let index = userLength() +1
+        let index = chaineeLength() +1
 
-        put(state{users[index] = newUser, userLength = index})
+        put(state{chainees[index] = newChainee, chaineeLength = index})
 
-        "User has been added successfully"
+        "chainee has been added successfully"
 
 
-    stateful payable entrypoint hireUser(index : i) = 
-        let employeeAddress = getUserById(index).ownerAddress
+    stateful payable entrypoint hireChainee(index : i) = 
+        let employeeAddress = getchaineeById(index).ownerAddress
         require(Call.caller != employeeAddress, "You cannot hire yourself;)")
 
-        // require(state.users[index].hired == false, "THis jobTypeer has been hired by another company" )
+        // require(state.chainees[index].hired == false, "THis jobTypeer has been hired by another company" )
 
-        let toBeHired = getUserById(index)
+        let toBeHired = getChaineeById(index)
         Chain.spend(toBeHired.ownerAddress, toBeHired.salary)
-        let hired = state.users[index].hired +1
+        let hired = state.chainees[index].hired +1
 
-        put(state{users[index].hired = hired })
+        put(state{Chainees[index].hired = hired })
         "Hired successfully"
 
 
@@ -69,7 +69,7 @@ payable contract Registration =
 
 const contractAddress = "ct_h9iy5fdMqqVhUK7Ncv5cJjrxEbz68b9E9NEzbgMz1JRr8W2hr";
 client = null;
-UserArray = [];
+ChaineeArray = [];
 
 function renderProduct() {
  
@@ -77,13 +77,13 @@ function renderProduct() {
 
   Mustache.parse(template);
   var rendered = Mustache.render(template, {
-    UserArray
+    ChaineeArray
   });
 
 
 
 
-  $('#section').html(rendered);
+  $('#ChainSection').html(rendered);
   console.log("Rendered")
 }
 
@@ -146,28 +146,28 @@ window.addEventListener('load', async () => {
 
   client = await Ae.Aepp()
 
-  gameLength = await callStatic('userLength', []);
+  gameLength = await callStatic('chaineeLength', []);
 
 
 
   for (let i = 1; i <= gameLength; i++) {
-    const newuser = await callStatic('getUserById', [i]);
+    const newChainee = await callStatic('getChaineeById', [i]);
     console.log("pushing to array")
 
-    var random  = newuser.chainee
+    var random  = newchainee.chainee
     var randomletter  = random.charAt(0)
 
-    UserArray.push({
-      id: newuser.id,
-      chainee: newuser.chainee,
-      email: newuser.email,
-      salary: newuser.salary,
-      hired: newuser.hired,
-      owner: newuser.ownerAddress,
-      hash: newuser.js,
-      jobType : newuser.jobType,
-      hours : newuser.hours,
-      company : newuser.company,
+    ChaineeArray.push({
+      id: newchainee.id,
+      chainee: newchainee.chainee,
+      email: newchainee.email,
+      salary: newchainee.salary,
+      hired: newchainee.hired,
+      owner: newchainee.ownerAddress,
+      hash: newchainee.js,
+      jobType : newchainee.jobType,
+      hours : newchainee.hours,
+      company : newchainee.company,
       randomLetter: randomletter
 
     })
@@ -202,7 +202,7 @@ async function uploadFile(file) {
 
 
 
-// Register User
+// Register chainee
 $('#submitBtn').click(async function () {
   $("#loadings").show();
 
@@ -241,8 +241,8 @@ $('#submitBtn').click(async function () {
 
 
 
-  UserArray.push({
-    id: UserArray.length + 1,
+  ChaineeArray.push({
+    id: ChaineeArray.length + 1,
     chainee: chainee,
     hash: multihash,
     salary: salarys,
@@ -269,7 +269,7 @@ $('#submitBtn').click(async function () {
 
 
 
-$("#section").on("click", ".hirebutton", async function (event) {
+$("#ChainSection").on("click", ".hirebutton", async function (event) {
   $("#loadings").show();
   console.log("Hiring jobTypeer")
 
@@ -278,13 +278,13 @@ $("#section").on("click", ".hirebutton", async function (event) {
   console.log("dataindex", dataIndex)
 
   // calls the getGame function from the smart contract
-  user = await callStatic('getUserById', [dataIndex])
+  chainee = await callStatic('getchaineeById', [dataIndex])
 
-  usersalary = parseInt(user.salary, 10)
-  console.log(usersalary)
+  chaineesalary = parseInt(chainee.salary, 10)
+  console.log(chaineesalary)
 
 
-  await contractCall('hireUser', [dataIndex], usersalary )
+  await contractCall('hireChainee', [dataIndex], chaineesalary )
 
   renderProduct();
 
@@ -294,7 +294,7 @@ $("#section").on("click", ".hirebutton", async function (event) {
 });
 
 
-$("#section").on( "click", ".downloadCVButton", async function (event) {
+$("#ChainSection").on( "click", ".downloadCVButton", async function (event) {
   $("#loadings").show();
 
   console.log("Downloading CV ")
@@ -303,8 +303,8 @@ $("#section").on( "click", ".downloadCVButton", async function (event) {
   dataIndex = event.target.id
   console.log("dataindex=", dataIndex)
 
-  // calls the getUserById function from the smart contract
-  js = await callStatic('getUserById', [dataIndex])
+  // calls the getChaineeById function from the smart contract
+  js = await callStatic('getChaineeById', [dataIndex])
   console.log("GET CV")
   console.log("https://ipfs.io/ipfs/" + js.js)
   
@@ -316,16 +316,16 @@ $("#section").on( "click", ".downloadCVButton", async function (event) {
 $('#registerChain').click( function(event){
   console.log("Showing register form")
   $('#registerSection').show();
-  $('#section').hide();
+  $('#ChainSection').hide();
 
 })
 
-// Show the registered users
+// Show the registered chainees
 
 $('#chainLink').click( function(event){
-  console.log("Showing user list")
-  $('#registerSection').hide();
-  $('#section').show();
+  console.log("Showing list of chainee")
+  $('#newChainSection').hide();
+  $('#ChainSection').show();
 
 })
 

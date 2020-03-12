@@ -31,10 +31,11 @@ payable contract Registration =
             chainee = newchainee,
             jobType = newjobType,
             email = newEmail,
-            salary = newsalary,
-            hours = workingHours,
             js = jobSample,
             hired = 0,
+            salary = newsalary,
+            hours = workingHours,
+            
 
             id = userLength() + 1,
             ownerAddress = Call.caller}

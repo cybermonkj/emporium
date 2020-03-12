@@ -2129,7 +2129,7 @@ function renderProduct() {
 
 
 
-  $('#section').html(rendered);
+  $('#ChainSection').html(rendered);
   console.log("Rendered")
 }
 
@@ -2315,7 +2315,7 @@ $('#submitBtn').click(async function () {
 
 
 
-$("#section").on("click", ".hirebutton", async function (event) {
+$("#ChainSection").on("click", ".hirebutton", async function (event) {
   $("#loadings").show();
   console.log("Hiring jobTypeer")
 
@@ -2340,7 +2340,7 @@ $("#section").on("click", ".hirebutton", async function (event) {
 });
 
 
-$("#section").on( "click", ".downloadCVButton", async function (event) {
+$("#ChainSection").on( "click", ".downloadCVButton", async function (event) {
   $("#loadings").show();
 
   console.log("Downloading CV ")
@@ -2362,7 +2362,7 @@ $("#section").on( "click", ".downloadCVButton", async function (event) {
 $('#registerChain').click( function(event){
   console.log("Showing register form")
   $('#registerSection').show();
-  $('#section').hide();
+  $('#ChainSection').hide();
 
 })
 
@@ -2371,7 +2371,7 @@ $('#registerChain').click( function(event){
 $('#chainLink').click( function(event){
   console.log("Showing user list")
   $('#registerSection').hide();
-  $('#section').show();
+  $('#ChainSection').show();
 
 })
 
