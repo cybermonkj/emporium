@@ -2147,11 +2147,7 @@ window.addEventListener('load', async () => {
       owner: newuser.ownerAddress,
       hash: newuser.js,
       jobType : newuser.jobType,
-      hours : newuser.hours,
-      company : newuser.company,
-      randomLetter: randomletter
-
-    })
+      days : newuser.days})
   }
 
   renderProduct();
@@ -2193,7 +2189,7 @@ $('#submitBtn').click(async function () {
 
   email = ($('#newEmail').val());
 
-  hours = ($('#workingHours').val());
+  days = ($('#workingDays').val());
 
   jobType = ($('#newjobType').val());
 
@@ -2216,7 +2212,7 @@ $('#submitBtn').click(async function () {
   salarys = parseInt(salary, 10)
   var random  = chainee
   var randomletter  = random.charAt(0)
-  reggame = await contractCall('register', [chainee, email, salary, jobType, hours, company, multihash], 0)
+  reggame = await contractCall('register', [chainee, email, salary, jobType, days, multihash], 0)
   console.log(multihash)
 
 
@@ -2228,10 +2224,8 @@ $('#submitBtn').click(async function () {
     hash: multihash,
     salary: salarys,
     email : email,
-    company : company,
     jobType : jobType,
-    hours : hours,
-    randomLetter : randomletter
+    days : days
 
 
 
@@ -2275,7 +2269,7 @@ $("#ChainSection").on("click", ".hirebutton", async function (event) {
 });
 
 
-$("#ChainSection").on( "click", ".downloadCVButton", async function (event) {
+$("#ChainSection").on( "click", ".downloadJSButton", async function (event) {
   $("#loadings").show();
 
   console.log("Downloading CV ")

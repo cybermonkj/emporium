@@ -9,8 +9,7 @@ payable contract Registration =
         email : s,
         salary : i,
         jobType : s,
-        hours : i,
-        // company : s,
+        days : i,
         js : s,
         hired : int,
         ownerAddress : a,
@@ -25,13 +24,13 @@ payable contract Registration =
     entrypoint getchaineeById(index : int)= 
         state.chainees[index]
         
-    stateful entrypoint register(newchainee:s, newEmail :s, newsalary :i, newjobType :s, workingHours : i, jobSample : s) = 
+    stateful entrypoint register(newchainee:s, newEmail :s, newsalary :i, newjobType :s, workingDays : i, jobSample : s) = 
         let newChainee = {
             chainee = newchainee,
             jobType = newjobType,
             email = newEmail,
             salary = newsalary,
-            hours = workingHours,
+            days = workingDays,
             js = jobSample,
             hired = 0,
             id = chaineeLength() + 1,
@@ -42,7 +41,6 @@ payable contract Registration =
     stateful payable entrypoint hireChainee(index : i) = 
         let employeeAddress = getchaineeById(index).ownerAddress
         require(Call.caller != employeeAddress, "You cannot hire yourself;)")
-        // require(state.chainees[index].hired == false, "THis jobTypeer has been hired by another company" )
         let toBeHired = getchaineeById(index)
         Chain.spend(toBeHired.ownerAddress, toBeHired.salary)
         let hired = state.chainees[index].hired +1
@@ -57,12 +55,10 @@ UserArray = [];
 
 function renderProduct() {
  
-  var template = $('#template').html();
+  var template = $('#template ').html();
 
-  Mustache.parse(template);
-  var rendered = Mustache.render(template, {
-    UserArray
-  });
+  Mustache.parse(template); 
+  var rendered = Mustache.render(template, {UserArray});
 
 
 
@@ -150,10 +146,7 @@ window.addEventListener('load', async () => {
       owner: newuser.ownerAddress,
       hash: newuser.js,
       jobType : newuser.jobType,
-      hours : newuser.hours,
-      company : newuser.company,
-      randomLetter: randomletter
-
+      days : newuser.days
     })
   }
 
@@ -196,7 +189,7 @@ $('#submitBtn').click(async function () {
 
   email = ($('#newEmail').val());
 
-  hours = ($('#workingHours').val());
+  days = ($('#workingDays').val());
 
   jobType = ($('#newjobType').val());
 
@@ -219,7 +212,7 @@ $('#submitBtn').click(async function () {
   salarys = parseInt(salary, 10)
   var random  = chainee
   var randomletter  = random.charAt(0)
-  reggame = await contractCall('register', [chainee, email, salary, jobType, hours, company, multihash], 0)
+  reggame = await contractCall('register', [chainee, email, salary, jobType, days, multihash], 0)
   console.log(multihash)
 
 
@@ -231,10 +224,8 @@ $('#submitBtn').click(async function () {
     hash: multihash,
     salary: salarys,
     email : email,
-    company : company,
     jobType : jobType,
-    hours : hours,
-    randomLetter : randomletter
+    days : days,
 
 
 
@@ -272,13 +263,13 @@ $("#ChainSection").on("click", ".hirebutton", async function (event) {
 
   renderProduct();
 
-  console.log("Hired successfully, contact your jobTypeer")
+  console.log("Hired successfully, contact your Freelancer")
   
   $("#loadings").hide();
 });
 
 
-$("#ChainSection").on( "click", ".downloadCVButton", async function (event) {
+$("#ChainSection").on( "click", ".downloadJSButton", async function (event) {
   $("#loadings").show();
 
   console.log("Downloading CV ")
@@ -289,7 +280,7 @@ $("#ChainSection").on( "click", ".downloadCVButton", async function (event) {
 
   // calls the getUserById function from the smart contract
   js = await callStatic('getUserById', [dataIndex])
-  console.log(" ################## THE LINK TO MY CV")
+  console.log("LINK TO JOB SAMPLE")
   console.log("https://ipfs.io/ipfs/" + js.js)
   
   $("#loadings").hide();
