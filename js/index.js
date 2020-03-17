@@ -101,11 +101,8 @@ async function contractCall(func, args, value) {
 
 
 document.addEventListener('DOMContentLoaded', async () => {
-
   $("#loadings").show();
   $('#registerSection').hide();
-
-
   const node = await IpfsHttpClient({
     host: 'ipfs.infura.io',
     port: 5001,
@@ -114,29 +111,21 @@ document.addEventListener('DOMContentLoaded', async () => {
   })
   console.log(node)
   window.node = node
-
   $("#loadings").hide();
-
 })
 var buffer = null
 
 window.addEventListener('load', async () => {
   $("#loadings").show();
   $('#registerSection').hide();
-
   client = await Ae.Aepp()
-
   gameLength = await callStatic('userLength', []);
-
-
-
   for (let i = 1; i <= gameLength; i++) {
     const newuser = await callStatic('getUserById', [i]);
-    console.log("pushing to array")
+    console.log("sending to array")
 
     var random  = newuser.chainee
-    var randomletter  = random.charAt(0)
-
+    //var randomletter  = random.charAt(0)
     UserArray.push({
       id: newuser.id,
       chainee: newuser.chainee,
@@ -151,13 +140,11 @@ window.addEventListener('load', async () => {
   }
 
   renderProduct();
-  console.log("pushed succeessfully")
+  console.log("Rendered succeessfully")
   $("#loadings").hide();
 });
 
-
-
-// This connects youtopublic ipfs gateway
+// This connects to public ipfs gateway
 const ipfs = window.IpfsHttpClient('ipfs.infura.io', '5001', { protocol: 'https' });
 
 // Converts the uploaded file to a buffer which is required to upload to an ipfs node
@@ -177,8 +164,6 @@ async function uploadFile(file) {
 }
 
 
-
-
 // Register User
 $('#submitBtn').click(async function () {
   $("#loadings").show();
@@ -192,8 +177,6 @@ $('#submitBtn').click(async function () {
   days = ($('#workingDays').val());
 
   jobType = ($('#newjobType').val());
-
-  // image = ($('#image').val());
 
   // gets the uploaded file
 

@@ -22,7 +22,7 @@
 <div class="topnav" id="myTopnav">
   <a href="index.html" class="active" id="homeLink">Home</a>
   <a onclick="document.getElementById('id01').style.display='block'" style="width:auto;" id="chainLogin" >Login</a>
-  <a onclick="document.getElementById('registerSection').style.display='block'" id="registerChain" style="width:auto;">Sign Up</a>
+  <a onclick="document.getElementById('id02').style.display='block'" id="registerChain" style="width:auto;">Sign Up</a>
   <a href="chains.html" id="chainLink">Freelancers</a>
   <div class="dropdown">
    
@@ -253,8 +253,8 @@
     
 
 
-<div id=" " class="modal">
-  <span onclick="document.getElementById('registerSection').style.display='none'" class="close" title="Close Modal">&times;</span>
+<div id="id02" class="modal">
+  <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
   <form class="modal-content" action="/action_page.php">
     <div class="container">
       <h1>Sign Up</h1>
@@ -272,8 +272,8 @@
       <label for="email"><b>Freelance field</b></label>
       <input id="newjobType"  type="text" name="newjobType" placeholder="Web Developer/Graphics designer"/>
 
-      <label for="workingDays"><b>jobTypeing Days</b></label>
-      <input id="workingDays" type="text" name="workingDays" placeholder="Friday"/>
+      <label for="workingHours"><b>jobTypeing Days</b></label>
+      <input id="workingHours" type="text" name="workingHours" placeholder="Friday"/>
 
       <label for="psw"><b>Password</b></label>
       <input type="password" placeholder="Enter Password" name="psw" required>
@@ -301,7 +301,7 @@
 
 <script>
 // Get the modal
-var modal = document.getElementById('registerSection');
+var modal = document.getElementById('id02');
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
