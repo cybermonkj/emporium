@@ -24,7 +24,7 @@ payable contract Registration =
     entrypoint getchaineeById(index : int)= 
         state.chainees[index]
         
-    stateful entrypoint register(newchainee:s, newEmail :s, newsalary :i, newjobType :s, workingDays : i, jobSample : s) = 
+    stateful entrypoint register(newchainee:s, newEmail:s, newsalary:i, newjobType:s, workingDays:i, jobSample:s) = 
         let newChainee = {
             chainee = newchainee,
             jobType = newjobType,
@@ -46,22 +46,18 @@ payable contract Registration =
         let hired = state.chainees[index].hired +1
         put(state{chainees[index].hired = hired })
         "Hired successfully"
-        
 `;
 
-const contractAddress = "ct_h9iy5fdMqqVhUK7Ncv5cJjrxEbz68b9E9NEzbgMz1JRr8W2hr";
+const contractAddress = "ct_2iaZBKLAFDYJrZKBvifU4zhTXtuy5iXjrcQFbrxsCJsmPrZPHd";
 client = null;
-UserArray = [];
+ChainArray = [];
 
 function renderProduct() {
  
   var template = $('#template ').html();
 
   Mustache.parse(template); 
-  var rendered = Mustache.render(template, {UserArray});
-
-
-
+  var rendered = Mustache.render(template, {ChainArray});
 
   $('#ChainSection').html(rendered);
   console.log("Rendered")
@@ -126,7 +122,7 @@ window.addEventListener('load', async () => {
 
     var random  = newuser.chainee
     //var randomletter  = random.charAt(0)
-    UserArray.push({
+    ChainArray.push({
       id: newuser.id,
       chainee: newuser.chainee,
       email: newuser.email,
@@ -178,8 +174,6 @@ $('#submitBtn').click(async function () {
 
   jobType = ($('#newjobType').val());
 
-  // gets the uploaded file
-
   newfile = document.getElementById('addedFile')
 
 
@@ -201,8 +195,8 @@ $('#submitBtn').click(async function () {
 
 
 
-  UserArray.push({
-    id: UserArray.length + 1,
+  ChainArray.push({
+    id: ChainArray.length + 1,
     chainee: chainee,
     hash: multihash,
     salary: salarys,
@@ -216,8 +210,11 @@ $('#submitBtn').click(async function () {
   location.reload((true))
   renderProduct();
   $("#loadings").hide();
+  console.log(response);
+      }).catch(e => {
+    console.log(e);
+  });
 });
-
 
 
 

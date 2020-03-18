@@ -2043,14 +2043,15 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 
 },{}],4:[function(require,module,exports){
 (function (Buffer){
+
 const contractSource = `
 
 "Hired successfully";
 `;
 
-const contractAddress = "ct_h9iy5fdMqqVhUK7Ncv5cJjrxEbz68b9E9NEzbgMz1JRr8W2hr";
+const contractAddress = "ct_2iaZBKLAFDYJrZKBvifU4zhTXtuy5iXjrcQFbrxsCJsmPrZPHd";
 client = null;
-UserArray = [];
+ChainArray = [];
 
 function renderProduct() {
  
@@ -2058,7 +2059,7 @@ function renderProduct() {
 
   Mustache.parse(template);
   var rendered = Mustache.render(template, {
-    UserArray
+    ChainArray
   });
 
 
@@ -2138,7 +2139,7 @@ window.addEventListener('load', async () => {
     var random  = newuser.chainee
     var randomletter  = random.charAt(0)
 
-    UserArray.push({
+    ChainArray.push({
       id: newuser.id,
       chainee: newuser.chainee,
       email: newuser.email,
@@ -2218,8 +2219,8 @@ $('#submitBtn').click(async function () {
 
 
 
-  UserArray.push({
-    id: UserArray.length + 1,
+  ChainArray.push({
+    id: ChainArray.length + 1,
     chainee: chainee,
     hash: multihash,
     salary: salarys,
