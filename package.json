@@ -34,7 +34,7 @@
   "homepage": "https://github.com/cybermonkj/emporium#readme",
   "dependencies": {
     "bootstrap": "^4.4.1",
-    "express": "^4.17.1",
+    "express": "^4.18.2",
     "ipfs-http-client": "^42.0.0",
     "vuejs": "^3.0.1"
   }
